@@ -1,6 +1,7 @@
-#include "../include/pipex
+#include "../include/pipex.h"
 
-int validation(const char *str1, const char *str2) {
+int ft_strcmp(const char *str1, const char *str2)
+{
     int len1;
     int len2;
     int i;
@@ -10,7 +11,7 @@ int validation(const char *str1, const char *str2) {
     len2 = ft_strlen(str2);
     i = 0;
     while (i <= len1 - len2) {
-       j = 0;
+        j = 0;
         while (j < len2 && str1[i + j] == str2[j]) {
             j++;
         }
@@ -20,6 +21,17 @@ int validation(const char *str1, const char *str2) {
         i++;
     }
     return 0;
+}
+
+int validation(char **argv)
+{
+    if (ft_strcmp(argv[1],"/dev/urandom") || ft_strcmp(argv[1],"/dev/random")||
+        ft_strcmp(argv[4],"/dev/urandom") || ft_strcmp(argv[4],"/dev/random"))
+    {
+        ft_putstr_fd("No such a file or directory\n", 2);
+        return (1);
+    }
+    return (0);
 }
 
 void child_process(char **argv, char **envp, int *fd)
@@ -54,11 +66,8 @@ int main(int argc, char **argv, char **envp)
 
     if (argc == 5)
     {
-       if (validation(argv[1],"/dev/urandom") || validation(argv[1],"/dev/random") || validation(argv[4],"/dev/urandom") || validation(argv[4],"/dev/random"))
-       {
-           ft_putstr_fd("No such a file or directory\n", 2);
-           return 0;
-       }
+        if (validation(argv))
+            return 0;
         if (pipe(fd) == -1)
             error();
         pid = fork();
