@@ -47,7 +47,7 @@ void parent_process(char **argv, char **envp, int *fd)
     execute(argv[3],envp);
 }
 
-int main__ (int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
     int fd[2];
     pid_t pid;
@@ -73,8 +73,4 @@ int main__ (int argc, char **argv, char **envp)
         ft_putstr_fd("\033[31mError: Bad arguments\n\e[0m", 2);
         ft_putstr_fd("Example of correct version: ./pipex <file1> <cmd1> <cmd2> <file2>\n", 1);
     }
-}
-int main ()
-{
-    main__
 }
