@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rharutyu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rharutyu <rharutyu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:46:38 by rharutyu          #+#    #+#             */
-/*   Updated: 2024/05/06 14:46:41 by rharutyu         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:26:48 by rharutyu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ int	validation(char **argv)
 		ft_putstr_fd("No such a file or directory\n", 2);
 		return (1);
 	}
+	else if (!(argv[2][0] >= 'a' && argv[2][0] <= 'z') && !(argv[2][0] >= 'A'
+			&& argv[2][0] <= 'Z') && !(argv[3][0] >= 'a' && argv[3][0] <= 'z')
+		&& !(argv[3][0] >= 'A' && argv[3][0] <= 'Z'))
+	{
+		msg(ERR_CMD);
+		return (1);
+	}
 	return (0);
 }
 
@@ -81,12 +88,12 @@ int	main(int argc, char **argv, char **envp)
 	int		fd[2];
 	pid_t	pid;
 
-	if (argc == 5)
+	if (argc == 5 && envp)
 	{
 		if (validation(argv))
 			return (0);
 		if (pipe(fd) == -1)
-			error();
+			msg(ERR_PIPE);
 		pid = fork();
 		if (pid == -1)
 			error();
@@ -97,8 +104,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 	{
-		ft_putstr_fd("\033[31mError:Bad arguments\n\e[0m", 2);
+		ft_putstr_fd("\033[31mInvalid number of arguments\n\n\e[0m", 2);
 		ft_putstr_fd("Example of correct version:", 1);
 		ft_putstr_fd("./pipex <file1> <cmd1> <cmd2> <file2>\n", 1);
+		exit(1);
 	}
 }

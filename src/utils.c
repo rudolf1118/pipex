@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rharutyu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rharutyu <rharutyu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 14:48:29 by rharutyu          #+#    #+#             */
-/*   Updated: 2024/05/06 14:48:36 by rharutyu         ###   ########.fr       */
+/*   Updated: 2024/05/06 18:29:18 by rharutyu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,16 @@ char	*find_path(char *cmd, char **envp)
 	return (0);
 }
 
+int	msg(char *err)
+{
+	ft_putstr_fd(err, 2);
+	return (1);
+}
+
 void	error(void)
 {
 	perror("\033[31mError");
-	exit(EXIT_FAILURE);
+	exit(1);
 }
 
 void	execute(char *argv, char **envp)
@@ -75,7 +81,9 @@ void	execute(char *argv, char **envp)
 		while (cmd[i])
 			free(cmd[i++]);
 		free(cmd);
-		error();
+		msg(ERR_CMD);
+		exit(0);
+		return ;
 	}
 	if (execve(path, cmd, envp) == -1)
 		error();
