@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rharutyu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/06 14:36:43 by rharutyu          #+#    #+#             */
+/*   Updated: 2024/05/06 14:36:50 by rharutyu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
-#include <unistd.h>
-#include <stdio.h>
-#include<sys/wait.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
-void child_process(char **argv, char **envp, int *fd);
-void execute(char *argv, char **envp);
-char *find_path(char *cmd, char **envp);
+void	child_process(char **argv, char **envp, int *fd);
+void	execute(char *argv, char **envp);
+char	*find_path(char *cmd, char **envp);
 void	error(void);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
